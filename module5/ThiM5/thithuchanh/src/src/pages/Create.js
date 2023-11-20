@@ -6,17 +6,21 @@ import Product from "../models/Product";
 
 const rules = Yup.object().shape({
     name: Yup.string()
-    .min(2, "Nhập trên 2 ký tự")
-    .max(50, "Đã quá 50 ký tự")
-    .required("Vui lòng điền vào ô trống"),
-quantity: Yup.string()
-    .min(2, "Nhập trên 2 ký tự")
-    .max(50, "Đã quá 50 ký tự")
-    .required("Vui lòng điền vào ô trống"),
+        .min(2, "Nhập trên 2 ký tự")
+        .max(50, "Đã quá 50 ký tự")
+        .required("Vui lòng điền vào ô trống"),
+    quantity: Yup.string()
+        .min(2, "Nhập trên 2 ký tự")
+        .max(50, "Đã quá 50 ký tự")
+        .required("Vui lòng điền vào ô trống"),
     price: Yup.string()
-    .min(2, "Nhập trên 2 ký tự")
-    .max(50, "Đã quá 50 ký tự")
-    .required("Vui lòng điền vào ô trống")
+        .min(2, "Nhập trên 2 ký tự")
+        .max(50, "Đã quá 50 ký tự")
+        .required("Vui lòng điền vào ô trống"),
+    description: Yup.string()
+        .min(2, "Nhập trên 2 ký tự")
+        .max(50, "Đã quá 50 ký tự")
+        .required("Vui lòng điền vào ô trống")
 });
 function Create(props) {
     let navigate = useNavigate();
@@ -25,7 +29,8 @@ function Create(props) {
     const [formData, setFormData] = useState({
         'name': '',
         'price': '',
-        'quantity': ''
+        'quantity': '',
+        'description': '',
     })
     const handleSubmit = (values) => {
         let data = values;
@@ -68,8 +73,16 @@ function Create(props) {
                             <div>{errors.quantity}</div>
                         ) : null}
                         <br />
+
+                        <label htmlFor="description">Mô tả</label>
+                        <br />
+                        <textarea id="description" name="description" />
+                        {errors.description && touched.description ? (
+                            <div>{errors.description}</div>
+                        ) : null}
+                        <br />
                         <button type="submit">Cập nhật</button> |
-                        <Link to ="/">Quay lại</Link>
+                        <Link to="/">Quay lại</Link>
                     </Form>
                 )}
             </Formik>

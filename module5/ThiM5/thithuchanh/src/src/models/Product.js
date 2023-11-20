@@ -34,6 +34,19 @@ class Product {
 		})
 	}
 
+// 	// find(id) {
+//   return new Promise((resolve, reject) => {
+//     axios
+//       .get(this.api_url + "/" + id)
+//       .then((res) => {
+//         resolve(res.data); // Truyền dữ liệu từ res.data vào resolve()
+//       })
+//       .catch((error) => {
+//         reject(error); // Truyền lỗi error vào reject()
+//       });
+//   });
+// }
+
 	// Xử lý cập nhật
 	update( id, data ){
 		return new Promise( (reslove, reject) => {
@@ -65,6 +78,19 @@ class Product {
 			});
 		})
 	}
+
+	show(id) {
+		return new Promise((resolve, reject) => {
+		  axios
+			.get(this.api_url + "/" + id)
+			.then((res) => {
+			  resolve(res.data); // Truyền dữ liệu từ res.data vào resolve()
+			})
+			.catch((error) => {
+			  reject(error); // Truyền lỗi error vào reject()
+			});
+		});
+	  }
 }
 
 export default new Product;

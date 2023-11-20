@@ -30,6 +30,7 @@ function List(props) {
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
                         <th>Tồn kho</th>
+                        <th>Mô tả</th>
                         <th>hành động</th>
                     </tr>
                 </thead>
@@ -41,8 +42,10 @@ function List(props) {
                                 <td> {item.name} </td>
                                 <td> {item.price} </td>
                                 <td> {item.quantity} </td>
+                                <td> {item.description} </td>
                                 <td> <Link to={'edit/' + item.id}>Sửa</Link> |
-                                    <Link onClick={() => handleDelete(item.id)}>Xóa</Link>
+                                    <Link onClick={() => handleDelete(item.id)}>Xóa</Link>|
+                                    <Link to={'show/' + item.id}>xem</Link> 
                                 </td>
                             </tr>
                         )) : ''
