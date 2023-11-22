@@ -5,8 +5,13 @@ import CartModel from "../models/CartModel";
 import { useDispatch, useSelector } from "react-redux";
 import MasterLayout from "../layouts/MasterLayout";
 import ProductModel from "../models/ProductModel";
+import CustomerModel from "../models/CustomerModel";
+import Swal from "sweetalert2";
+import { SET_CART } from "../redux/action";
 
 function Cart(props) {
+    const cart = useSelector((state) => state.cart);
+
     const [products, setProducts] = useState([]);
     const totalAll = products.reduce((total, product) => {
         return total + product.price * product.quantity;
@@ -17,7 +22,7 @@ function Cart(props) {
         CartModel.getAll()
             .then((res) => {
                 setProducts(res);
-                // console.log(res);
+                console.log(res);
             })
             .catch((err) => {
                 throw err;
@@ -53,6 +58,20 @@ function Cart(props) {
         }
     };
 
+    const handleCheckout = () => {
+        let customer = CustomerModel.getCookie("customer");
+        customer = customer ? JSON.parse(customer) : "";
+    
+        if (!customer) {
+          alert("Bạn cần đăng nhập để thanh toán đơn hàng của bạn !");
+          navigate("/login");
+        } else {
+          localStorage.setItem("cart", JSON.stringify(cart));
+          dispatch({ type: SET_CART, payload: cart });
+          navigate("/checkout");
+        }
+    };
+
     return (
         <MasterLayout>
             <>
@@ -62,14 +81,14 @@ function Cart(props) {
                         style={{ minHeight: 300 }}
                     >
                         <h1 className="font-weight-semi-bold text-uppercase mb-3">
-                            Shopping Cart
+                        GIỎ HÀNG
                         </h1>
                         <div className="d-inline-flex">
                             <p className="m-0">
-                                <a href="">Home</a>
+                                <a href="/">Trang chủ</a>
                             </p>
                             <p className="m-0 px-2">-</p>
-                            <p className="m-0">Shopping Cart</p>
+                            <p className="m-0">GIỎ HÀNG</p>
                         </div>
                     </div>
                 </div>
@@ -108,7 +127,7 @@ function Cart(props) {
                                             </td>
                                             <td>
                                                 {(product.quantity * product.price).toLocaleString()}  VNĐ
- 
+
                                             </td>
                                             <td>
                                                 <button
@@ -150,11 +169,15 @@ function Cart(props) {
                                         <h5 className="font-weight-bold">Tổng</h5>
                                         <h5 className="font-weight-bold">{(totalAll - 30000).toLocaleString()} VND</h5>
                                     </div>
-                                    <button className="btn btn-block btn-primary my-3 py-3">
+                                    <button
+                                        onClick={handleCheckout}
+                                        href=""
+                                        className="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                                    >
                                         Đặt hàng
                                     </button>
                                     <a className="gray_btn" href="/">
-                                       
+
                                         <span className="arrow_icon">
                                             <i className="fas fa-arrow-left"></i>
                                         </span>

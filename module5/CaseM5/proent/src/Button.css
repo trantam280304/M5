@@ -1,0 +1,35 @@
+.button-container {
+    margin-left: 10px;
+    text-align: center;
+    position: inherit;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  
+  .button-link {
+    color: red;
+    text-decoration: none;
+  }
+  
+  .button-link:hover {
+    text-decoration: underline;
+  }
+  
+  .button-link:active {
+    color: darkred;
+  }
+  
+  .button .login-link {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .button .login-link:hover {
+    text-decoration: underline;
+  }
+  
+  .button .login-link:active {
+    color: darkgray;
+  }

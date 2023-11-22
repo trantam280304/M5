@@ -3,8 +3,8 @@ import MasterLayout from "../layouts/MasterLayout";
 import { Link, useNavigate } from 'react-router-dom';
 import ProductModel from '../models/ProductModel';
 import CartModel from "../models/CartModel";
-import App from '../App.css';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Home(props) {
 
     const navigate = useNavigate();
@@ -33,10 +33,11 @@ function Home(props) {
     const handleAddToCart = (productId) => {
         CartModel.addtocart(productId)
             .then((res) => {
-                console.log(res);
-                alert('Thêm vào giỏ hàng thành công');
+                // Hiển thị thông báo thành công
+                toast.success('Thêm vào giỏ hàng thành công');
+
                 // Cập nhật số lượng sản phẩm trong giỏ hàng
-                setCartItemCount(cartItemCount + 1);
+                setCartItemCount(+ 1);
             })
             .catch((error) => {
                 console.log(error);
@@ -47,12 +48,12 @@ function Home(props) {
 
     return (
         <MasterLayout>
+            <h1> ---- Sản phẩm ----</h1>
             <a href="/cart" className="btn border cart-button">
                 <i className="fas fa-shopping-cart text-primary text-right" />
                 <span className="badge">{cartItemCount}</span>
             </a>
             <div className="row">
-
                 {products.slice(0, visibleProducts).map((product) => (
                     <div key={product.id} className="col-lg-3 col-md-6 col-sm-12 pb-1">
                         <div className="card product-item border-0 mb-4">
@@ -84,7 +85,6 @@ function Home(props) {
                                     className="btn btn-sm text-dark p-0"
                                 >
                                     < i className="fas fa-shopping-cart"></i>  Giỏ Hàng
-
                                 </button>
                             </div>
                         </div>

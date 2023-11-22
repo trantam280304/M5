@@ -4,12 +4,25 @@ import axios from 'axios';
 import MasterLayout from "../layouts/MasterLayout";
 import CartModel from '../models/CartModel';
 import ProductModel from '../models/ProductModel';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Detail(props) {
     const navigate = useNavigate();
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const Urlname = 'http://127.0.0.1:8000/';
+    const [count, setCount] = useState(1);
+
+    const [products, setProducts] = useState([]);
+    function handleQuantityChange(productId, newQuantity) {
+        const updatedProducts = products.map((product) => {
+            if (product.id === productId) {
+                return { ...product, quantity: newQuantity };
+            }
+            return product;
+        });
+        setProducts(updatedProducts);
+    }
 
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/api/products/${id}`)
@@ -28,14 +41,14 @@ function Detail(props) {
 
     const handleAddToCart = () => {
         const cart = {
-          id: id,
+            id: id,
         };
         CartModel.addtocart(id)
-          .then((res) => {
-            console.log(res );
-            alert('thêm thành công')
-            navigate("/Cart");
-          });
+            .then((res) => {
+                console.log(res);
+                toast.success('Thêm vào giỏ hàng thành công');
+                navigate("/Cart");
+            });
     };
 
     return (
@@ -45,13 +58,13 @@ function Detail(props) {
                     className="d-flex flex-column align-items-center justify-content-center"
                     style={{ minHeight: 300 }}
                 >
-                    <h1 className="font-weight-semi-bold text-uppercase mb-3">Shop Detail</h1>
+                    <h1 className="font-weight-semi-bold text-uppercase mb-3">CHI TIẾT CỬA HÀNG</h1>
                     <div className="d-inline-flex">
                         <p className="m-0">
-                            <a href="">Home</a>
+                            <a href="/">Trang chủ</a>
                         </p>
                         <p className="m-0 px-2">-</p>
-                        <p className="m-0">Shop Detail</p>
+                        <p className="m-0">CHI TIẾT CỬA HÀNG</p>
                     </div>
                 </div>
             </div>
@@ -80,28 +93,44 @@ function Detail(props) {
                     <div className="col-lg-7 pb-5">
                         <h3 className="font-weight-semi-bold text-left">{product.name}</h3>
                         <h3 className="font-weight-semi-bold mb-4 text-left">{product.price.toLocaleString()} VND</h3>
-                        <p className="mb-4  text-left ">
-                            {product.description}
+                        <p className="mb-4  text-left "   dangerouslySetInnerHTML={{ __html: product.description }}>
                         </p>
                         <div className="d-flex align-items-center mb-4 pt-2">
-                            <div className="input-group quantity mr-3" style={{ width: 130 }}>
+                            <div
+                                className="input-group quantity mr-3"
+                                style={{ width: 130 }}
+                            >
                                 <div className="input-group-btn">
-                                    <button className="btn btn-primary btn-minus">
+                                    <button
+                                        onClick={() => {
+                                            if (count > 1) {
+                                                setCount(count - 1);
+                                            }
+                                        }}
+                                        className="btn btn-primary btn-minus"
+                                    >
                                         <i className="fa fa-minus" />
                                     </button>
                                 </div>
                                 <input
                                     type="text"
-                                    className="form-control bg-secondary text-center"
-                                    defaultValue={1}
+                                    min={1}
+                                    className="form-control bg-secondary border-0 text-center"
+                                    value={count}
+                                    onChange={(e) => setCount(parseInt(e.target.value))}
                                 />
                                 <div className="input-group-btn">
-                                    <button className="btn btn-primary btn-plus">
+                                    <button
+                                        onClick={() => setCount(count + 1)}
+                                        className="btn btn-primary btn-plus"
+                                    >
                                         <i className="fa fa-plus" />
                                     </button>
                                 </div>
                             </div>
-                            <button onClick={handleAddToCart} class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> BuyNow</button>
+
+
+                            <button onClick={handleAddToCart} class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Đến giỏ hàng</button>
 
                         </div>
                         <div className="d-flex pt-2">
