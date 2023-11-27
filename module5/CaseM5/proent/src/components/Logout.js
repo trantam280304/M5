@@ -8,7 +8,6 @@ function Logout(){
             CustomerModel.logout()
                 .then((response) => {
                     CustomerModel.deleteCookie("customer");
-                    alert('Bạn muốn đăng xuất không')
                     Swal.fire({
                         icon: "success",
                         title: "Đăng xuất thành công",

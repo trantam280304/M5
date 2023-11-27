@@ -8,6 +8,7 @@ import Products from './components/Products';
 import Login from './pages/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/products" element={<Products />}></Route>
+        <Route path="/register" element={<Register />} />
+
       </Routes>
       <ToastContainer />
     

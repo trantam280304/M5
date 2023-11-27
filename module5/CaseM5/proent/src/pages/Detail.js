@@ -6,8 +6,15 @@ import CartModel from '../models/CartModel';
 import ProductModel from '../models/ProductModel';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SET_CART } from "../redux/action";
+import { useDispatch, useSelector } from 'react-redux';
+
+
 function Detail(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart); // Retrieve cart from Redux store
+
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const Urlname = 'http://127.0.0.1:8000/';
@@ -40,15 +47,29 @@ function Detail(props) {
     }
 
     const handleAddToCart = () => {
-        const cart = {
-            id: id,
+        let item = {
+          product_id: id,
+          quantity: count,
+          product: product,
+          product_id: product.id,
         };
-        CartModel.addtocart(id)
-            .then((res) => {
-                console.log(res);
-                toast.success('Thêm vào giỏ hàng thành công');
-                navigate("/Cart");
-            });
+        let update = false;
+        for (let index = 0; index < cart.length; index++) {
+          const element = cart[index];
+          if (element.product_id == id) {
+            update = true;
+            cart[index].quantity = cart[index].quantity + count;
+          }
+        }
+        if (update) {
+          var newCart = [...cart];
+        } else {
+          var newCart = [...cart, item];
+        }
+        toast.success('Thêm vào giỏ hàng thành công');
+        navigate("/Cart");
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        dispatch({ type: SET_CART, payload: newCart });
     };
 
     return (

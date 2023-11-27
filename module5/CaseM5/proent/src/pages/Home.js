@@ -2,25 +2,28 @@ import React, { useEffect, useState } from "react";
 import MasterLayout from "../layouts/MasterLayout";
 import { Link, useNavigate } from 'react-router-dom';
 import ProductModel from '../models/ProductModel';
-import CartModel from "../models/CartModel";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_CART } from "../redux/action";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function Home(props) {
+    const cart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [cartItemCount, setCartItemCount] = useState(0);
     const [products, setProducts] = useState([]);
     const [visibleProducts, setVisibleProducts] = useState(4);
-
     useEffect(() => {
         ProductModel.all()
-            .then((res) => {
-                setProducts(res.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+          .then((res) => {
+            setProducts(res.data);
+          })
+          .catch((err) => {
+            throw err;
+          });
+      }, []);
 
     const handleShowMore = () => {
         setVisibleProducts(visibleProducts + 4);
@@ -30,29 +33,39 @@ function Home(props) {
         setVisibleProducts(visibleProducts - 4);
     };
 
-    const handleAddToCart = (productId) => {
-        CartModel.addtocart(productId)
-            .then((res) => {
-                // Hiển thị thông báo thành công
-                toast.success('Thêm vào giỏ hàng thành công');
-
-                // Cập nhật số lượng sản phẩm trong giỏ hàng
-                setCartItemCount(+ 1);
-            })
-            .catch((error) => {
-                console.log(error);
-                alert('Thêm vào giỏ hàng thất bại');
-            });
+    const handleAddToCart = (id, count, product) => {
+        let item = {
+            product_id: id,
+            quantity: count,
+            product: product,
+        };
+        let update = false;
+        for (let index = 0; index < cart.length; index++) {
+            const element = cart[index];
+            if (element.product_id === id) {
+                update = true;
+                cart[index].quantity = cart[index].quantity + count;
+            }
+        }
+        if (update) {
+            var newCart = [...cart];
+        } else {
+            var newCart = [...cart, item];
+        }
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        dispatch({ type: SET_CART, payload: newCart });
+        toast.success("Thêm thành công");
+        setCartItemCount(newCart.length);
     };
 
 
     return (
         <MasterLayout>
             <h1> ---- Sản phẩm ----</h1>
-            <a href="/cart" className="btn border cart-button">
+            <Link to="/cart" className="btn border cart-button">
                 <i className="fas fa-shopping-cart text-primary text-right" />
                 <span className="badge">{cartItemCount}</span>
-            </a>
+            </Link>
             <div className="row">
                 {products.slice(0, visibleProducts).map((product) => (
                     <div key={product.id} className="col-lg-3 col-md-6 col-sm-12 pb-1">
@@ -80,11 +93,10 @@ function Home(props) {
                                     Chi tiết
                                 </Link>
                                 <button
-
-                                    onClick={() => handleAddToCart(product.id)}
+                                    onClick={() => handleAddToCart(product.id, 1, product)}
                                     className="btn btn-sm text-dark p-0"
                                 >
-                                    < i className="fas fa-shopping-cart"></i>  Giỏ Hàng
+                                    <i className="fas fa-shopping-cart"></i>  Giỏ Hàng
                                 </button>
                             </div>
                         </div>

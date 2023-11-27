@@ -12,12 +12,12 @@ function Checkout(children) {
             <div className="col-12">
               <nav className="breadcrumb bg-light mb-30">
                 <a className="breadcrumb-item text-dark" href="#">
-                  Home
+                  Trang chủ
                 </a>
                 <a className="breadcrumb-item text-dark" href="#">
                   Shop
                 </a>
-                <span className="breadcrumb-item active">Checkout</span>
+                <span className="breadcrumb-item active">Thanh toán</span>
               </nav>
             </div>
           </div>

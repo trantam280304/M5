@@ -9,96 +9,74 @@ function Footer(props) {
             <a href="" className="text-decoration-none">
               <h1 className="mb-4 display-5 font-weight-semi-bold">
                 <span className="text-primary font-weight-bold border border-white px-3 mr-1">
-                  E
+                𝔗𝔯ầ𝔫 
                 </span>
-                Shopper
+                𝔗â𝔪
               </h1>
             </a>
-            <p>
-              Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit
-              erat lorem et magna ipsum dolore amet erat.
-            </p>
+          
             <p className="mb-2">
               <i className="fa fa-map-marker-alt text-primary mr-3" />
-              123 Street, New York, USA
+              PHONG BÌNH - GIO LINH - QUẢNG TRỊ
             </p>
             <p className="mb-2">
               <i className="fa fa-envelope text-primary mr-3" />
-              info@example.com
+              trantam280304@gmail.com
             </p>
             <p className="mb-0">
               <i className="fa fa-phone-alt text-primary mr-3" />
-              +012 345 67890
+              0914695575
             </p>
           </div>
           <div className="col-lg-8 col-md-12">
             <div className="row">
               <div className="col-md-4 mb-5">
-                <h5 className="font-weight-bold text-dark mb-4">Quick Links</h5>
+                <h5 className="font-weight-bold text-dark mb-4">Đường dẫn của shop</h5>
                 <div className="d-flex flex-column justify-content-start">
-                  <a className="text-dark mb-2" href="index.html">
+                  <a className="text-dark mb-2" href="/">
                     <i className="fa fa-angle-right mr-2" />
-                    Home
+                    Trang chủ
                   </a>
-                  <a className="text-dark mb-2" href="shop.html">
+                
+                  <a className="text-dark mb-2" href="/cart">
                     <i className="fa fa-angle-right mr-2" />
-                    Our Shop
+                    Chi tiết sản phẩm
                   </a>
-                  <a className="text-dark mb-2" href="detail.html">
+                  <a className="text-dark mb-2" href="/checkout">
                     <i className="fa fa-angle-right mr-2" />
-                    Shop Detail
+                    Thanh toán
                   </a>
-                  <a className="text-dark mb-2" href="cart.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Shopping Cart
-                  </a>
-                  <a className="text-dark mb-2" href="checkout.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Checkout
-                  </a>
-                  <a className="text-dark" href="contact.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Contact Us
-                  </a>
+                 
                 </div>
               </div>
               <div className="col-md-4 mb-5">
-                <h5 className="font-weight-bold text-dark mb-4">Quick Links</h5>
+                <h5 className="font-weight-bold text-dark mb-4">Đường dẫn của shop</h5>
                 <div className="d-flex flex-column justify-content-start">
-                  <a className="text-dark mb-2" href="index.html">
+                <a className="text-dark mb-2" href="/">
                     <i className="fa fa-angle-right mr-2" />
-                    Home
+                    Trang chủ
                   </a>
-                  <a className="text-dark mb-2" href="shop.html">
+                 
+                  
+                  <a className="text-dark mb-2" href="/cart">
                     <i className="fa fa-angle-right mr-2" />
-                    Our Shop
+                    Chi tiết sản phẩm
                   </a>
-                  <a className="text-dark mb-2" href="detail.html">
+                  <a className="text-dark mb-2" href="/checkout">
                     <i className="fa fa-angle-right mr-2" />
-                    Shop Detail
+                    Thanh toán
                   </a>
-                  <a className="text-dark mb-2" href="cart.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Shopping Cart
-                  </a>
-                  <a className="text-dark mb-2" href="checkout.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Checkout
-                  </a>
-                  <a className="text-dark" href="contact.html">
-                    <i className="fa fa-angle-right mr-2" />
-                    Contact Us
-                  </a>
+                 
                 </div>
               </div>
               <div className="col-md-4 mb-5">
-                <h5 className="font-weight-bold text-dark mb-4">Newsletter</h5>
+                <h5 className="font-weight-bold text-dark mb-4">Bản tin</h5>
                 <form action="">
                   <div className="form-group">
                     <input
                       type="text"
                       className="form-control border-0 py-4"
-                      placeholder="Your Name"
+                      placeholder="Tên"
                       required="required"
                     />
                   </div>
@@ -106,7 +84,7 @@ function Footer(props) {
                     <input
                       type="email"
                       className="form-control border-0 py-4"
-                      placeholder="Your Email"
+                      placeholder=" Email"
                       required="required"
                     />
                   </div>
@@ -115,7 +93,7 @@ function Footer(props) {
                       className="btn btn-primary btn-block border-0 py-3"
                       type="submit"
                     >
-                      Subscribe Now
+                     Gửi liền
                     </button>
                   </div>
                 </form>
@@ -128,17 +106,10 @@ function Footer(props) {
             <p className="mb-md-0 text-center text-md-left text-dark">
               ©{" "}
               <a className="text-dark font-weight-semi-bold" href="#">
-                Your Site Name
+                Cảm ơn bạn
               </a>
-              . All Rights Reserved.
-              {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-              Designed by{" "}
-              <a
-                className="text-dark font-weight-semi-bold"
-                href="https://htmlcodex.com"
-              >
-                HTML Codex
-              </a>
+               . Đã tin tưởng shop mình
+             
             </p>
           </div>
           <div className="col-md-6 px-xl-0 text-center text-md-right">

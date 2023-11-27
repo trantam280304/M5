@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import OrderModel from "../../models/OrderModel";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import CustomerModel from "../../models/CustomerModel";
 import YourOrder from "./YourOrder";
 import { SET_CART } from "../../redux/action";
+import axios from 'axios';
+import CustomerModel from "../../models/CustomerModel";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Vui lòng nhập tên người nhận!"),
   email: Yup.string().required("Vui lòng nhập email!"),
@@ -49,13 +50,18 @@ function CheckOutForm(props) {
       setCustomer(customerData);
     }
   }, []);
-  
 
   const handleSubmit = (values) => {
     values.cart = cart;
-    values.customer_id = customer.id;
-    console.log(values);
-    OrderModel.checkout(values)
+    console.log(values.cart)
+    values.customer_id = customer ? customer.id : null;
+    
+    console.log(values.customer_id);
+    axios.post('http://127.0.0.1:8000/api/order', values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then((res) => {
         Swal.fire({
           icon: "success",
@@ -66,10 +72,11 @@ function CheckOutForm(props) {
         // set local, setcart
         localStorage.removeItem("cart");
         dispatch({ type: SET_CART, payload: [] });
-        // chuyen huong
+        // chuyển hướng
         navigate('/');
       })
       .catch((err) => {
+        console.error(err);
         Swal.fire({
           icon: "error",
           title: "Thanh toán thất bại!",
@@ -91,15 +98,14 @@ function CheckOutForm(props) {
           <div className="row px-xl-5">
             <div className="col-lg-8">
               <h5 className="section-title position-relative text-uppercase mb-3">
-                <span className="bg-secondary pr-3">Thông tin khách hàng</span>
+                <span className="bg-secondary pr-3">Địa chỉ thanh toán</span>
               </h5>
               <div className="bg-light p-30 mb-5">
                 <div className="row">
                   <div className="col-md-6 form-group">
-                    <label>Tên</label>
-                    <br/>
+                    <label>Tên khách hàng</label>
                     <Field
-                      className=""
+                      className="form-control"
                       type="text"
                       placeholder="Name ..."
                       name="name"
@@ -114,9 +120,8 @@ function CheckOutForm(props) {
                   </div>
                   <div className="col-md-6 form-group">
                     <label>E-mail</label>
-                    <br/>
                     <Field
-                      className=""
+                      className="form-control"
                       type="text"
                       placeholder="zzz@gmail.com"
                       name="email"
@@ -130,10 +135,9 @@ function CheckOutForm(props) {
                     />
                   </div>
                   <div className="col-md-6 form-group">
-                    <label className="">Số điện thoại</label> 
-                    <br/>
+                    <label>Số điện thoại</label>
                     <Field
-                      className=""
+                      className="form-control"
                       type="text"
                       placeholder="+ 0123 456 789"
                       name="phone"
@@ -147,23 +151,22 @@ function CheckOutForm(props) {
                     />
                   </div>
                   <div className="col-md-6 form-group">
-                    <label className="label">Địa chỉ</label>
-                    <br/>
+                    <label>Địa chỉ</label>
                     <Field
-                      className=""
+                      className="form-control"
                       type="text"
                       placeholder="address ..."
                       name="address"
                       value={customer.address}
                       onChange={handleChange}
                     />
-                     <ErrorMessage name="address" component="div" className="error" />
+                    <ErrorMessage name="address" component="div" className="error" />
                   </div>
                 </div>
                 <div className="mb-5">
                   <div className="bg-light p-30">
                     <button type="submit" className="btn btn-block btn-primary font-weight-bold py-3">
-                     Đặt hàng
+                     Thanh toán
                     </button>
                   </div>
                 </div>

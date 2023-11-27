@@ -39,35 +39,7 @@
 .cart-button {
   margin-left: 1300px;
 }
-.bg-light {
-  background-color: #f8f9fa;
-}
 
-.p-30 {
-  padding: 30px;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-
-.col-md-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -89,5 +61,13 @@ input[type="text"] {
 
 .error {
   color: red;
+}
+.custom-thead {
+  background-color: #D19C97; /* Màu nền */
+  color: #333333; /* Màu chữ */
+}
+
+.m-0{
+  text-align: center;
 }
 

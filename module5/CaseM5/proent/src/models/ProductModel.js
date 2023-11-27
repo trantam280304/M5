@@ -1,66 +1,34 @@
 import axios from "axios";
 
 class ProductModel {
-    constructor() {
-		// Khai báo thuộc tính
-		this.api_url = 'http://127.0.0.1:8000/api/products';
-	}
-    // Lấy tất cả 
-    all() {
-        //  dùng Promise
-        return new Promise((reslove, reject) => {
-            axios.get(this.api_url).then((res) => {
-                reslove(res);
-            }).catch((res) => {
-                reject(res);
-            });
-        })
+  constructor() {
+    this.api_url = "http://127.0.0.1:8000/api/products/";
+  }
 
-    }
+  async all() {
+    const res = await axios.get(this.api_url);
+    return res.data;
+  }
 
-    find(id) {
-        return new Promise((reslove, reject) => {
-            axios.get(this.api_url  +"/"+ id).then((res) => {
-                reslove(res);
-            }).catch((res) => {
-                reject(res);
-            })
-        })
+  async find(id) {
+    const data = await axios.get(this.api_url + id);
+    return data.data;
+  }
 
-    }
-    
-    // Xử lý cập nhật
-    update(id, data) {
-        return new Promise((reslove, reject) => {
-            axios.put(this.api_url + "/" + id , data).then((res) => {
-                reslove(res);
-            }).catch((res) => {
-                reject(res);
-            })
-        })
-    }
-    // xử lý xóa
-    destroy(id) {
-        return new Promise((reslove, reject) => {
-            axios.delete(this.api_url + "/" + id).then((res) => {
-                reslove(res);
-            }).catch((res) => {
-                reject(res);
-            })
-        })
+  async store(data) {
+    const res = await axios.post(this.api_url + data);
+    return res;
+  }
 
-    }
-    // xử lý thêm
-    store(data) {
-        return new Promise((reslove, reject) => {
-            axios.post(this.api_url + "/" , data).then((res) => {
-                reslove(res);
-            }).catch((res) => {
-                reject(res);
-            });
-        })
-    }
+  async update(id, data) {
+    const res = await axios.put(this.api_url + id, data);
+    return res;
+  }
+
+  async delete(id) {
+    const data = await axios.delete(this.api_url + id);
+    return data;
+  }
 }
 
-
-export default new ProductModel;
+export default new ProductModel();

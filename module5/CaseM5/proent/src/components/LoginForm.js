@@ -110,7 +110,7 @@
                           <p className="mt-4 text-sm text-center">
                           Bạn cần giúp đỡ?
                             <a
-                              href="../pages/sign-up.html"
+                              href="/register"
                               className="text-primary text-gradient font-weight-bold"
                             >
                               Đăng ký
